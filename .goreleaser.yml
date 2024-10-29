@@ -1,7 +1,7 @@
 env:
   - GO111MODULE=on
   - CGO_ENABLED=0
-  - GITHUB_ORG=Jalmeida1994
+  - GITHUB_ORG=jalmeida1994
   - DOCKER_ORG=jalmeida1994
 
 before:
