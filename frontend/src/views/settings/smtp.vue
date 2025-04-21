@@ -17,7 +17,7 @@
 
           <div class="column" :class="{ disabled: !item.enabled }">
             <div class="columns">
-              <div class="column is-8">
+              <div class="column is-9">
                 <b-field :label="$t('settings.mailserver.host')" label-position="on-border"
                   :message="$t('settings.mailserver.hostHelp')">
                   <b-input v-model="item.host" name="host" placeholder="smtp.yourmailserver.net" :maxlength="200" />
@@ -73,6 +73,7 @@
               <a href="#" @click.prevent="() => fillSettings(n, 'mailjet')">Mailjet</a>
               <a href="#" @click.prevent="() => fillSettings(n, 'sendgrid')">Sendgrid</a>
               <a href="#" @click.prevent="() => fillSettings(n, 'postmark')">Postmark</a>
+              <a href="#" @click.prevent="() => fillSettings(n, 'forwardemail')">Forward Email</a>
             </div>
             <hr />
 
@@ -141,6 +142,15 @@
             </div>
 
             <div class="columns">
+              <div class="column is-6">
+                <b-field :label="$t('globals.fields.name')" label-position="on-border"
+                  :message="$t('settings.mailserver.nameHelp')">
+                  <b-input v-model="item.name" name="name" placeholder="email-primary" :maxlength="100" />
+                </b-field>
+              </div>
+            </div>
+
+            <div class="columns">
               <div class="column">
                 <p v-if="item.email_headers.length === 0 && !item.showHeaders">
                   <a href="#" @click.prevent="() => showSMTPHeaders(n)">
@@ -165,8 +175,8 @@
                   </div>
                   <div class="column is-4">
                     <b-field :label="$t('settings.smtp.toEmail')" label-position="on-border">
-                      <b-input type="email" required v-model="testEmail" :ref="'testEmailTo'" placeholder="email@site.com"
-                        :custom-class="`test-email-${n}`" />
+                      <b-input type="email" required v-model="testEmail" :ref="'testEmailTo'"
+                        placeholder="email@site.com" :custom-class="`test-email-${n}`" />
                     </b-field>
                   </div>
                 </template>
@@ -220,6 +230,9 @@ const smtpTemplates = {
   sendgrid: {
     host: 'smtp.sendgrid.net', port: 465, auth_protocol: 'login', tls_type: 'TLS',
   },
+  forwardemail: {
+    host: 'smtp.forwardemail.net', port: 465, auth_protocol: 'login', tls_type: 'TLS',
+  },
   postmark: {
     host: 'smtp.postmarkapp.com', port: 587, auth_protocol: 'cram', tls_type: 'STARTTLS',
   },
@@ -247,6 +260,7 @@ export default Vue.extend({
   methods: {
     addSMTP() {
       this.data.smtp.push({
+        name: '',
         enabled: true,
         host: '',
         hello_hostname: '',

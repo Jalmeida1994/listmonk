@@ -35,6 +35,7 @@ type Settings struct {
 	PrivacyExportable         []string `json:"privacy.exportable"`
 	PrivacyRecordOptinIP      bool     `json:"privacy.record_optin_ip"`
 	DomainBlocklist           []string `json:"privacy.domain_blocklist"`
+	DomainAllowlist           []string `json:"privacy.domain_allowlist"`
 
 	SecurityEnableCaptcha bool   `json:"security.enable_captcha"`
 	SecurityCaptchaKey    string `json:"security.captcha_key"`
@@ -63,6 +64,7 @@ type Settings struct {
 	UploadS3Expiry             string   `json:"upload.s3.expiry"`
 
 	SMTP []struct {
+		Name          string              `json:"name"`
 		UUID          string              `json:"uuid"`
 		Enabled       bool                `json:"enabled"`
 		Host          string              `json:"host"`
@@ -106,6 +108,10 @@ type Settings struct {
 		Username string `json:"username"`
 		Password string `json:"password"`
 	} `json:"bounce.postmark"`
+	BounceForwardEmail struct {
+		Enabled bool   `json:"enabled"`
+		Key     string `json:"key"`
+	} `json:"bounce.forwardemail"`
 	BounceBoxes []struct {
 		UUID          string `json:"uuid"`
 		Enabled       bool   `json:"enabled"`

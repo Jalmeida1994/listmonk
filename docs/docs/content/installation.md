@@ -107,7 +107,7 @@ $ helm upgrade \
 
 ## 3rd party hosting
 
-<a href="https://dash.elest.io/deploy?soft=Listmonk&id=237"><img src="https://elest.io/images/logos/deploy-to-elestio-btn.png" alt="Deploy to Elestio" height="35" style="max-width: 150px;" /></a>
+<a href="https://dash.elest.io/deploy?soft=Listmonk&id=237"><img src="https://raw.githubusercontent.com/elestio-examples/reactjs/refs/heads/master/src/deploy-on-elestio.png" alt="Deploy to Elestio" height="35" style="max-width: 150px;" /></a>
 <br />
 <a href="https://www.pikapods.com/pods?run=listmonk"><img src="https://www.pikapods.com/static/run-button.svg" alt="Deploy on PikaPod" style="max-width: 150px;" /></a>
 <br />
@@ -115,7 +115,7 @@ $ helm upgrade \
 <br />
 <a href="https://repocloud.io/details/?app_id=217"><img src="https://d16t0pc4846x52.cloudfront.net/deploy.png" alt="Deploy at RepoCloud" style="max-width: 150px;"/></a>
 <br />
-<a href="https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Dlistmonk"><img src="https://cdn.jsdelivr.net/gh/labring-actions/templates@main/Deploy-on-Sealos.svg" alt="Deploy on Sealos" style="max-width: 150px;"/></a>
+<a href="https://template.sealos.io/deploy?templateName=listmonk"><img src="https://sealos.io/Deploy-on-Sealos.svg" alt="Deploy on Sealos" style="max-width: 150px;"/></a>
 <br />
 <a href="https://zeabur.com/templates/5EDMN6"><img src="https://zeabur.com/button.svg" alt="Deploy on Zeabur" style="max-width: 150px;"/></a>
 

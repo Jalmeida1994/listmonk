@@ -170,6 +170,7 @@ CREATE TABLE media (
     meta             JSONB NOT NULL DEFAULT '{}',
     created_at       TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+DROP INDEX IF EXISTS idx_media_filename; CREATE INDEX idx_media_filename ON media(provider, filename);
 
 -- campaign_media
 DROP TABLE IF EXISTS campaign_media CASCADE;
@@ -248,6 +249,7 @@ INSERT INTO settings (key, value) VALUES
     ('privacy.allow_preferences', 'true'),
     ('privacy.exportable', '["profile", "subscriptions", "campaign_views", "link_clicks"]'),
     ('privacy.domain_blocklist', '[]'),
+    ('privacy.domain_allowlist', '[]'),
     ('privacy.record_optin_ip', 'false'),
     ('security.enable_captcha', 'false'),
     ('security.captcha_key', '""'),
@@ -279,6 +281,7 @@ INSERT INTO settings (key, value) VALUES
     ('bounce.sendgrid_enabled', 'false'),
     ('bounce.sendgrid_key', '""'),
     ('bounce.postmark', '{"enabled": false, "username": "", "password": ""}'),
+    ('bounce.forwardemail', '{"enabled": false, "key": ""}'),
     ('bounce.mailboxes',
         '[{"enabled":false, "type": "pop", "host":"pop.yoursite.com","port":995,"auth_protocol":"userpass","username":"username","password":"password","return_path": "bounce@listmonk.yoursite.com","scan_interval":"15m","tls_enabled":true,"tls_skip_verify":false}]'),
     ('appearance.admin.custom_css', '""'),
@@ -421,9 +424,9 @@ DROP INDEX IF EXISTS mat_dashboard_charts_idx; CREATE UNIQUE INDEX mat_dashboard
 -- subscriber counts stats for lists
 DROP MATERIALIZED VIEW IF EXISTS mat_list_subscriber_stats;
 CREATE MATERIALIZED VIEW mat_list_subscriber_stats AS
-    SELECT NOW() AS updated_at, lists.id AS list_id, subscriber_lists.status, COUNT(*) AS subscriber_count FROM lists
+    SELECT NOW() AS updated_at, lists.id AS list_id, subscriber_lists.status, COUNT(subscriber_lists.status) AS subscriber_count FROM lists
     LEFT JOIN subscriber_lists ON (subscriber_lists.list_id = lists.id)
     GROUP BY lists.id, subscriber_lists.status
     UNION ALL
-    SELECT NOW() AS updated_at, 0 AS list_id, NULL AS status, COUNT(*) AS subscriber_count FROM subscribers;
+    SELECT NOW() AS updated_at, 0 AS list_id, NULL AS status, COUNT(id) AS subscriber_count FROM subscribers;
 DROP INDEX IF EXISTS mat_list_subscriber_stats_idx; CREATE UNIQUE INDEX mat_list_subscriber_stats_idx ON mat_list_subscriber_stats (list_id, status);
